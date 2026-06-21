@@ -58,6 +58,9 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
   <input type="text" name="destination" />
   <input type="text" name="intake" />
   <input type="text" name="study_level" />
+  <input type="text" name="course" />
+  <input type="text" name="academic_score" />
+  <input type="text" name="study_gap" />
   <textarea name="message"></textarea>
   <input type="text" name="company" />
 </form>
@@ -113,6 +116,24 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
               <option value="+2 / A-Level">+2 / A-Level</option>
               <option value="Bachelor’s">Bachelor’s</option>
               <option value="Master’s">Master’s</option>
+            </select>
+            <span style="position:absolute;right:15px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9A8F7C;font-size:12px;">▾</span>
+          </div>
+
+          <label style="display:block;font:600 11px 'Hanken Grotesk',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#9A8F7C;margin:14px 0 6px;">Preferred course</label>
+          <input id="f-course" placeholder="e.g. MBA, Nursing, IT, Engineering" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
+
+          <label style="display:block;font:600 11px 'Hanken Grotesk',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#9A8F7C;margin:14px 0 6px;">Latest GPA / percentage</label>
+          <input id="f-score" placeholder="e.g. 3.4 GPA or 75%" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
+
+          <label style="display:block;font:600 11px 'Hanken Grotesk',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#9A8F7C;margin:14px 0 6px;">Study gap</label>
+          <div style="position:relative;">
+            <select id="f-gap" style="appearance:none;-webkit-appearance:none;width:100%;padding:15px 40px 15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;cursor:pointer;outline:none;">
+              <option value="">Select…</option>
+              <option value="No gap">No gap</option>
+              <option value="1 year">1 year</option>
+              <option value="2 years">2 years</option>
+              <option value="3+ years">3+ years</option>
             </select>
             <span style="position:absolute;right:15px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9A8F7C;font-size:12px;">▾</span>
           </div>
@@ -297,7 +318,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
         <img src="intandem-logo-trim.png" alt="InTandem Scholars" width="148" height="34" style="height:34px;width:auto;display:block;" />
       </div>
       <p style="margin:14px 0 0;font:400 12.5px/1.6 'Hanken Grotesk',sans-serif;color:#7E7A71;">Government-licensed overseas education counselling from Kathmandu. Honest, profile-first guidance for the UK, Australia, Canada and Europe.</p>
-      <div style="margin-top:16px;font:400 12.5px/1.9 'Hanken Grotesk',sans-serif;color:#9A958C;">Battisputali Marg, Old Baneshwor, Kathmandu<br>intandemscholars@gmail.com</div>
+      <div style="margin-top:16px;font:400 12.5px/1.9 'Hanken Grotesk',sans-serif;color:#9A958C;">Battisputali Marg, Old Baneshwor, Kathmandu<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="157c7b61747b71707866767d7a79746766557278747c793b767a78">[email&#160;protected]</a></div>
       <div style="margin-top:13px;position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08);line-height:0;"><iframe title="Intandem Scholars — Old Baneshwor, Kathmandu" src="https://maps.google.com/maps?q=InTandem%20Scholars%2C%20Old%20Baneshwor%2C%20Kathmandu&z=16&output=embed" width="100%" height="150" style="border:0;display:block;pointer-events:none;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="https://maps.app.goo.gl/djws8rwurKRuAiQC7" target="_blank" rel="noopener" aria-label="Open in Google Maps" style="position:absolute;inset:0;display:block;"></a></div>
       <a href="https://maps.app.goo.gl/djws8rwurKRuAiQC7" target="_blank" rel="noopener" style="display:inline-block;margin-top:9px;font:600 11.5px 'Hanken Grotesk',sans-serif;color:#C2A36B;text-decoration:none;">View on Google Maps →</a>
       <div style="margin-top:16px;display:flex;gap:16px;"><button id="btn-privacy" style="background:none;border:none;padding:0;cursor:pointer;color:#7E7A71;font:500 12px 'Hanken Grotesk',sans-serif;">Privacy Policy</button><button id="btn-terms" style="background:none;border:none;padding:0;cursor:pointer;color:#7E7A71;font:500 12px 'Hanken Grotesk',sans-serif;">Terms of Use</button></div>
@@ -325,7 +346,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   var GOLD = '#C2A36B';
   function el(id){ return document.getElementById(id); }
@@ -531,14 +552,18 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
     else if (lvlRaw.indexOf('PhD') > -1) lvl = 'PhD';
     var intake = (el('f-intake').value || '').trim();
     if (intake.indexOf('Select') > -1 || intake === 'Just exploring') intake = '';
+    var course = (el('f-course').value || '').trim();
+    var score = (el('f-score').value || '').trim();
     var parts = ['नमस्ते 🙏'];
     if (name) parts.push('मेरो नाम ' + name + ' हो।');
     else parts.push('मैले website को free assessment form भरेँ।');
     var line2 = 'म ';
     if (country) line2 += country + ' मा ';
     if (lvl) line2 += lvl + ' ';
+    if (course) line2 += '(' + course + ') ';
     line2 += 'apply गर्न चाहन्छु।';
     parts.push(line2);
+    if (score) parts.push('Academic: ' + score + '।');
     if (intake) parts.push('Intake: ' + intake + '।');
     parts.push('कृपया मेरो profile review गरिदिनुहोस्। 🎓');
     return 'https://wa.me/9779801025694?text=' + encodeURIComponent(parts.join('\n'));
@@ -549,9 +574,10 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
     var name = el('f-name').value, mobile = el('f-mobile').value, email = el('f-email').value;
     if (!name || !mobile || !email) { el('form-error').style.display = 'block'; return; }
     var dest = el('f-dest').value, intake = el('f-intake').value, qual = el('f-qual').value, message = el('f-message').value;
+    var course = el('f-course').value, score = el('f-score').value, gap = el('f-gap').value;
 
     // 1) Netlify Forms store: lead-intandem
-    var data = { 'form-name':'lead-intandem', name:name, phone:mobile, email:email, destination:dest||'', intake:intake||'', study_level:qual||'', message:message||'', company:'' };
+    var data = { 'form-name':'lead-intandem', name:name, phone:mobile, email:email, destination:dest||'', intake:intake||'', study_level:qual||'', course:course||'', academic_score:score||'', study_gap:gap||'', message:message||'', company:'' };
     var body = Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&');
     try { fetch('/', { method:'POST', headers:{ 'Content-Type':'application/x-www-form-urlencoded' }, body:body }).catch(function(){}); } catch(e){}
 
@@ -567,7 +593,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
       try { if (window.fbq) fbq('track','Lead',{},{ eventID:evId }); } catch(e){}
       fetch('https://pjpyifmmpcepwmhzkzuq.supabase.co/functions/v1/meta-capi', {
         method:'POST', headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ event_name:'Lead', event_id:evId, event_source_url:location.href, email:email, phone:mobile, name:name, fbc:getCookie('_fbc'), fbp:getCookie('_fbp'), custom_data:{ destination:dest||'', intake:intake||'', study_level:qual||'' } })
+        body: JSON.stringify({ event_name:'Lead', event_id:evId, event_source_url:location.href, email:email, phone:mobile, name:name, fbc:getCookie('_fbc'), fbp:getCookie('_fbp'), custom_data:{ destination:dest||'', intake:intake||'', study_level:qual||'', course:course||'', academic_score:score||'', study_gap:gap||'' } })
       }).catch(function(){});
     } catch(e){}
 
