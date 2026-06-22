@@ -318,7 +318,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
         <img src="intandem-logo-trim.png" alt="InTandem Scholars" width="148" height="34" style="height:34px;width:auto;display:block;" />
       </div>
       <p style="margin:14px 0 0;font:400 12.5px/1.6 'Hanken Grotesk',sans-serif;color:#5FA978;">Government-licensed overseas education counselling from Kathmandu. Honest, profile-first guidance for the UK, Australia, Canada and Europe.</p>
-      <div style="margin-top:16px;font:400 12.5px/1.9 'Hanken Grotesk',sans-serif;color:#5FA978;">Battisputali Marg, Old Baneshwor, Kathmandu<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82ebecf6e3ece6e7eff1e1eaedeee3f0f1c2e5efe3ebeeace1edef">[email&#160;protected]</a></div>
+      <div style="margin-top:16px;font:400 12.5px/1.9 'Hanken Grotesk',sans-serif;color:#5FA978;">Battisputali Marg, Old Baneshwor, Kathmandu<br><a id="footer-email" href="#" style="color:#5FA978;text-decoration:none;">&nbsp;</a></div>
       <div style="margin-top:13px;position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08);line-height:0;"><iframe title="Intandem Scholars — Old Baneshwor, Kathmandu" src="https://maps.google.com/maps?q=InTandem%20Scholars%2C%20Old%20Baneshwor%2C%20Kathmandu&z=16&output=embed" width="100%" height="150" style="border:0;display:block;pointer-events:none;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="https://maps.app.goo.gl/djws8rwurKRuAiQC7" target="_blank" rel="noopener" aria-label="Open in Google Maps" style="position:absolute;inset:0;display:block;"></a></div>
       <a href="https://maps.app.goo.gl/djws8rwurKRuAiQC7" target="_blank" rel="noopener" style="display:inline-block;margin-top:9px;font:600 11.5px 'Hanken Grotesk',sans-serif;color:#C2A36B;text-decoration:none;">View on Google Maps →</a>
       <div style="margin-top:16px;display:flex;gap:16px;"><button id="btn-privacy" style="background:none;border:none;padding:0;cursor:pointer;color:#5FA978;font:500 12px 'Hanken Grotesk',sans-serif;">Privacy Policy</button><button id="btn-terms" style="background:none;border:none;padding:0;cursor:pointer;color:#5FA978;font:500 12px 'Hanken Grotesk',sans-serif;">Terms of Use</button></div>
@@ -346,7 +346,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
   var GOLD = '#C2A36B';
   function el(id){ return document.getElementById(id); }
@@ -449,7 +449,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
       ['h','11. Changes to this policy'],
       ['p','We may update this Privacy Policy from time to time. The Last updated date shows when it was most recently revised.'],
       ['h','12. Contact us'],
-      ['p','Email: intandemscholars@gmail.com  ·  Address: Battisputali Marg, Old Baneshwor, Kathmandu, Bagmati Province, Nepal.'],
+      ['p','Email: intandemscholars'+String.fromCharCode(64)+'gmail.com  ·  Address: Battisputali Marg, Old Baneshwor, Kathmandu, Bagmati Province, Nepal.'],
       ['note','This document is a general template for Intandem Scholars Pvt. Ltd. and is not legal advice.']
     ]},
     terms: { title:'Terms of Use', updated:'Last updated: 14 June 2026', blocks:[
@@ -476,7 +476,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
       ['h','9. Changes to these Terms'],
       ['p','We may update these Terms from time to time. The Last updated date above indicates the latest revision. Continued use of our website after changes constitutes acceptance of the updated Terms.'],
       ['h','10. Contact us'],
-      ['p','Email: intandemscholars@gmail.com  ·  Address: Battisputali Marg, Old Baneshwor, Kathmandu, Bagmati Province, Nepal.'],
+      ['p','Email: intandemscholars'+String.fromCharCode(64)+'gmail.com  ·  Address: Battisputali Marg, Old Baneshwor, Kathmandu, Bagmati Province, Nepal.'],
       ['note','This document is a general template for Intandem Scholars Pvt. Ltd. and is not legal advice.']
     ]}
   };
@@ -502,6 +502,10 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
 
   // Destinations
   var selectedDest = null;
+  var _em = 'intandemscholars' + String.fromCharCode(64) + 'gmail.com';
+  var _fe = document.getElementById('footer-email');
+  if (_fe) { _fe.textContent = _em; _fe.href = 'mailto:' + _em; }
+
   el('dest-grid').innerHTML = destData.map(function(d,i){
     return '<button data-dest="'+esc(d.name)+'" style="display:flex;flex-direction:column;align-items:flex-start;text-align:left;background:#15151A;border:1px solid rgba(255,255,255,.08);border-radius:15px;padding:15px 14px 16px;cursor:pointer;"><div style="display:flex;align-items:center;justify-content:space-between;width:100%;"><span style="width:38px;height:38px;border:1px solid rgba(194,163,107,.4);border-radius:9px;display:flex;align-items:center;justify-content:center;font:600 13px \'Hanken Grotesk\',sans-serif;letter-spacing:.05em;color:var(--gold);">'+esc(d.mono)+'</span><span style="color:#6B675F;font-size:15px;">↗</span></div><span style="display:block;font:600 15px/1.2 \'Hanken Grotesk\',sans-serif;color:#F3EFE6;margin-top:13px;min-height:36px;">'+esc(d.name)+'</span><span style="display:block;font:400 12px/1.4 \'Hanken Grotesk\',sans-serif;color:#5FA978;margin-top:2px;">'+esc(d.tag)+'</span></button>';
   }).join('');
