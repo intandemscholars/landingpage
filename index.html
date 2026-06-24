@@ -587,10 +587,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
 
     // 2) GA4
     try { if (window.gtag) { gtag('event','lead_form_submit',{ ab_variant:'mobile' }); gtag('event','generate_lead',{ method:'landing_form', ab_variant:'mobile' }); } } catch(e){}
-    // 3) Meta Pixel InitiateCheckout
-    try { if (window.fbq) fbq('track','InitiateCheckout'); } catch(e){}
-
-    // 4) Meta CAPI (server) + browser Lead share one event_id for dedup
+    // 3) Meta CAPI (server) + browser Lead share one event_id for dedup
     try {
       var evId = 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2,10);
       var getCookie = function(n){ var m = document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)'); return m ? m.pop() : ''; };
