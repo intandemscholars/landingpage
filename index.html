@@ -184,10 +184,10 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
           <input id="f-name" placeholder="e.g. Aarav Sharma" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
 
           <label style="display:block;font:600 11px 'Hanken Grotesk',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#9A8F7C;margin:14px 0 6px;">Mobile number <span style="color:#B36A4A;">*</span></label>
-          <input id="f-mobile" placeholder="+977 98•• ••• •••" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
+          <input id="f-mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="+977 98•• ••• •••" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
 
-          <label style="display:block;font:600 11px 'Hanken Grotesk',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#9A8F7C;margin:14px 0 6px;">Email address <span style="color:#B36A4A;">*</span></label>
-          <input id="f-email" placeholder="you@email.com" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
+          <label style="display:block;font:600 11px 'Hanken Grotesk',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#9A8F7C;margin:14px 0 6px;">Email address <span style="color:#9A8F7C;text-transform:none;letter-spacing:0;font-weight:500;">(optional)</span></label>
+          <input id="f-email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" style="width:100%;padding:15px 16px;border:1px solid #D8D2C4;border-radius:11px;background:#FBF9F4;color:#1A1814;font:500 15px 'Hanken Grotesk',sans-serif;outline:none;" />
 
           <button id="btn-msg" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;padding:13px 16px;border:1px dashed #CDC6B6;border-radius:11px;background:transparent;color:#7E7567;font:600 13px 'Hanken Grotesk',sans-serif;cursor:pointer;">
             <span id="msg-label">Add a message or study goal (optional)</span>
@@ -576,7 +576,11 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
   // Submit — preserves the exact production tracking contract
   el('btn-submit').addEventListener('click', function(){
     var name = el('f-name').value, mobile = el('f-mobile').value, email = el('f-email').value;
-    if (!name || !mobile || !email) { el('form-error').style.display = 'block'; return; }
+    var showErr = function(msg){ var e = el('form-error'); e.textContent = msg; e.style.display = 'block'; };
+    if (!name || !mobile) { showErr('Please add your name and mobile number so your counsellor can reach you.'); return; }
+    var phoneDigits = (mobile.match(/\d/g) || []).length;
+    if (phoneDigits < 10) { showErr('Please enter a valid mobile number (at least 10 digits).'); el('f-mobile').focus(); return; }
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { showErr('Please enter a valid email address, or leave it blank.'); el('f-email').focus(); return; }
     var dest = el('f-dest').value, intake = el('f-intake').value, qual = el('f-qual').value, message = el('f-message').value;
     var course = el('f-course').value, score = el('f-score').value, gap = el('f-gap').value;
 
