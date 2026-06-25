@@ -42,6 +42,9 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
   .lp-hero-copy > div:nth-child(2){ padding:20px 0 0 !important; }
   .lp-h1{ font-size:44px !important; }
   #lead-form{ margin:0 !important; }
+  #lead-form label{ margin-top:11px !important; margin-bottom:5px !important; }
+  #lead-form input, #lead-form select{ padding-top:12px !important; padding-bottom:12px !important; }
+  #lead-form h2{ margin-top:11px !important; }
   .lp-sections > div{ padding-inline:max(24px, calc((100% - var(--content))/2)) !important; }
   .lp-trust{ grid-template-columns:repeat(4,1fr) !important; }
   .lp-pillars{ display:grid !important; grid-template-columns:repeat(3,1fr) !important; align-items:start; }
@@ -212,27 +215,7 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
         </div>
       </div>
 
-      <!-- Thank-you -->
-      <div id="form-done" class="hide">
-        <div style="text-align:center;padding:6px 4px;">
-          <div style="width:58px;height:58px;border-radius:50%;background:rgba(46,125,77,.12);border:1.5px solid rgba(46,125,77,.5);display:flex;align-items:center;justify-content:center;margin:0 auto;color:#2E7D4D;font-size:27px;">✓</div>
-          <h2 style="margin:16px 0 0;font:500 25px 'Newsreader',serif;color:#1A1814;letter-spacing:-.01em;">You’re in good hands.</h2>
-          <p style="margin:10px auto 0;max-width:280px;font:400 14.5px/1.6 'Hanken Grotesk',sans-serif;color:#5E584E;">A senior counsellor will review your profile and call you within <b style="color:#1A1814;">24 hours</b> with an honest read on your realistic options.</p>
-          <div style="display:flex;justify-content:center;gap:8px;margin-top:20px;flex-wrap:wrap;">
-            <span style="font:600 11px 'Hanken Grotesk',sans-serif;color:#A07E3E;background:rgba(194,163,107,.14);padding:7px 12px;border-radius:20px;">Profile reviewed</span>
-            <span style="font:600 11px 'Hanken Grotesk',sans-serif;color:#A07E3E;background:rgba(194,163,107,.14);padding:7px 12px;border-radius:20px;">Honest shortlist</span>
-            <span style="font:600 11px 'Hanken Grotesk',sans-serif;color:#A07E3E;background:rgba(194,163,107,.14);padding:7px 12px;border-radius:20px;">24h callback</span>
-          </div>
-          <div style="margin-top:22px;padding-top:18px;border-top:1px solid #E2DBCB;">
-            <p style="margin:0 0 4px;font:600 14px/1.5 'Hanken Grotesk',sans-serif;color:#1A1814;">Your assessment request has been received successfully.</p>
-            <p style="margin:0 0 16px;font:400 13.5px/1.55 'Hanken Grotesk',sans-serif;color:#5E584E;">A senior counsellor will review your profile and contact you within 24 hours.</p>
-            <a id="wa-link" href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:13px;border-radius:12px;background:none;border:1.5px solid #C2A36B;color:#A07E3E;font:600 14px 'Hanken Grotesk',sans-serif;text-decoration:none;">
-              <span style="font-size:14px;">💬</span>
-              Message us on WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
+      <!-- (Thank-you now lives on the dedicated /thank-you conversion page) -->
     </div>
   </div>
 
@@ -546,38 +529,9 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
     el('msg-chev').style.transform = msgOpen ? 'rotate(45deg)' : 'rotate(0deg)';
   });
 
-  // WhatsApp message builder
-  function buildWaHref(){
-    var name = (el('f-name').value || '').trim();
-    var country = (el('f-dest').value || '').trim();
-    if (!country || country.indexOf('Not sure') > -1 || country.indexOf('Select') > -1) country = '';
-    if (country === 'Europe (Your Gateway)') country = 'Europe';
-    var lvlRaw = el('f-qual').value || '';
-    var lvl = '';
-    if (lvlRaw.indexOf('Bachelor') > -1) lvl = 'Bachelor';
-    else if (lvlRaw.indexOf('Master') > -1) lvl = 'Master';
-    else if (lvlRaw.indexOf('Diploma') > -1) lvl = 'Diploma';
-    else if (lvlRaw.indexOf('PhD') > -1) lvl = 'PhD';
-    var intake = (el('f-intake').value || '').trim();
-    if (intake.indexOf('Select') > -1 || intake === 'Just exploring') intake = '';
-    var course = (el('f-course').value || '').trim();
-    var score = (el('f-score').value || '').trim();
-    var parts = ['नमस्ते 🙏'];
-    if (name) parts.push('मेरो नाम ' + name + ' हो।');
-    else parts.push('मैले website को free assessment form भरेँ।');
-    var line2 = 'म ';
-    if (country) line2 += country + ' मा ';
-    if (lvl) line2 += lvl + ' ';
-    if (course) line2 += '(' + course + ') ';
-    line2 += 'apply गर्न चाहन्छु।';
-    parts.push(line2);
-    if (score) parts.push('Academic: ' + score + '।');
-    if (intake) parts.push('Intake: ' + intake + '।');
-    parts.push('कृपया मेरो profile review गरिदिनुहोस्। 🎓');
-    return 'https://wa.me/9779801025694?text=' + encodeURIComponent(parts.join('\n'));
-  }
-
-  // Submit — preserves the exact production tracking contract
+  // Submit — capture the lead, then redirect to the dedicated /thank-you conversion page.
+  // All conversion tracking (GA4 generate_lead, Meta Pixel Lead + CAPI) now fires ON the
+  // thank-you page, so /thank-you can be used as the Google Ads / Meta conversion page.
   el('btn-submit').addEventListener('click', function(){
     var name = el('f-name').value, mobile = el('f-mobile').value, email = el('f-email').value;
     var showErr = function(msg){ var e = el('form-error'); e.textContent = msg; e.style.display = 'block'; };
@@ -588,36 +542,20 @@ body{background:#050506;font-family:'Hanken Grotesk',system-ui,sans-serif;-webki
     var dest = el('f-dest').value, intake = el('f-intake').value, qual = el('f-qual').value, message = el('f-message').value;
     var course = el('f-course').value, score = el('f-score').value, gap = el('f-gap').value;
 
-    // 1) Netlify Forms store: lead-intandem
-    var data = { 'form-name':'lead-intandem', name:name, phone:mobile, email:email, destination:dest||'', intake:intake||'', study_level:qual||'', course:course||'', academic_score:score||'', study_gap:gap||'', message:message||'', company:'' };
+    var lead = { name:name, phone:mobile, email:email, destination:dest||'', intake:intake||'', study_level:qual||'', course:course||'', academic_score:score||'', study_gap:gap||'', message:message||'' };
+
+    // 1) Netlify Forms store: lead-intandem — sendBeacon so the POST survives the redirect
+    var data = Object.assign({ 'form-name':'lead-intandem', company:'' }, lead);
     var body = Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&');
-    try { fetch('/', { method:'POST', headers:{ 'Content-Type':'application/x-www-form-urlencoded' }, body:body }).catch(function(){}); } catch(e){}
+    var sent = false;
+    try { if (navigator.sendBeacon) { sent = navigator.sendBeacon('/', new Blob([body], { type:'application/x-www-form-urlencoded' })); } } catch(e){}
+    if (!sent) { try { fetch('/', { method:'POST', headers:{ 'Content-Type':'application/x-www-form-urlencoded' }, body:body, keepalive:true }).catch(function(){}); } catch(e){} }
 
-    // 2) GA4
-    try { if (window.gtag) { gtag('event','lead_form_submit',{ ab_variant:'mobile' }); gtag('event','generate_lead',{ method:'landing_form', ab_variant:'mobile' }); } } catch(e){}
-    // 3) Meta CAPI (server) + browser Lead share one event_id for dedup
-    try {
-      var evId = 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2,10);
-      var getCookie = function(n){ var m = document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)'); return m ? m.pop() : ''; };
-      try { if (window.fbq) fbq('track','Lead',{},{ eventID:evId }); } catch(e){}
-      fetch('https://pjpyifmmpcepwmhzkzuq.supabase.co/functions/v1/meta-capi', {
-        method:'POST', headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ event_name:'Lead', event_id:evId, event_source_url:location.href, email:email, phone:mobile, name:name, fbc:getCookie('_fbc'), fbp:getCookie('_fbp'), custom_data:{ destination:dest||'', intake:intake||'', study_level:qual||'', course:course||'', academic_score:score||'', study_gap:gap||'' } })
-      }).catch(function(){});
-    } catch(e){}
+    // 2) Hand the lead to the thank-you page; conversion tracking fires there.
+    try { sessionStorage.setItem('intandem_lead', JSON.stringify(lead)); } catch(e){}
 
-    // Show thank-you
-    el('wa-link').href = buildWaHref();
-    el('form-wrap').classList.add('hide');
-    el('form-done').classList.remove('hide');
     el('form-error').style.display = 'none';
-    scrollToForm();
-  });
-
-  // WhatsApp click tracking
-  el('wa-link').addEventListener('click', function(){
-    try { if (window.fbq) fbq('track','Contact',{ content_name:'whatsapp' }); } catch(e){}
-    try { if (window.gtag) gtag('event','whatsapp_click',{ method:'whatsapp', ab_variant:'mobile' }); } catch(e){}
+    window.location.href = '/thank-you';
   });
 
   // FAQ accordion
